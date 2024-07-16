@@ -25,14 +25,13 @@
     "modules": [
         {
             "name": "libzstd",
-            "no-autogen": true,
+            "buildsystem": "simple",
             "subdir": "lib",
-            "make-args": [
-                "lib-mt"
-            ],
-            "make-install-args": [
-                "PREFIX=${FLATPAK_DEST}",
-                "LIBDIR=${FLATPAK_DEST}/lib"
+            "build-options": {
+                "cppflags": "-DZSTD_MULTITHREAD"
+            },
+            "build-commands": [
+                "make -j ${FLATPAK_BUILDER_N_JOBS} install-static PREFIX=${FLATPAK_DEST}"
             ],
             "sources": [
                 {
